@@ -20,8 +20,6 @@ public:
     Rational& operator *=(const Rational& num);
     Rational& operator /=(const Rational& num);
 
-    void Reduce();
-
     friend std::istream& operator >>(std::istream& in, Rational& num);
     friend std::ostream& operator <<(std::ostream& out, const Rational& num);
     friend bool operator ==(const Rational& first, const Rational& second);
@@ -30,6 +28,8 @@ public:
 private:
     int Numerator;
     int Denumenator = 1;
+
+    void Reduce();
 };
 
 

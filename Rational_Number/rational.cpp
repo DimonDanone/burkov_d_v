@@ -55,7 +55,7 @@ std::istream& operator >>(std::istream& in, Rational& num) {
         throw std::invalid_argument("Bad input. Right: Numerator/Denumerator");
     }
 
-    num = Rational(num.Numerator, num.Denumenator);
+    num.Reduce();
 
     return in;
 }
