@@ -37,8 +37,3 @@ Rational operator +(const Rational& first, const Rational& second);
 Rational operator -(const Rational& first, const Rational& second);
 Rational operator *(const Rational& first, const Rational& second);
 Rational operator /(const Rational& first, const Rational& second);
-
-#ifndef RATIONAL_NUMBER_RATIONAL_H
-#define RATIONAL_NUMBER_RATIONAL_H
-
-#endif //RATIONAL_NUMBER_RATIONAL_H
