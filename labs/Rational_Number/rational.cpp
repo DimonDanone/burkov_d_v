@@ -48,11 +48,15 @@ bool operator !=(const Rational& first, const Rational& second) {
 }
 
 std::istream& operator >>(std::istream& in, Rational& num) {
-    char strip;
-    in >> num.Numerator >> strip >> num.Denumenator;
+    std::string st;
+    in >> st;
 
-    if (strip != '/') {
-        throw std::invalid_argument("Bad input. Right: Numerator/Denumerator");
+    int pos = st.find('/');
+    if (pos != std::string::npos) {
+       num.Numerator = stoi(st.substr(0, pos));
+       num.Denumenator = stoi(st.substr(pos + 1, st.size() - pos));
+    } else {
+        num.Numerator = stoi(st);
     }
 
     num.Reduce();
