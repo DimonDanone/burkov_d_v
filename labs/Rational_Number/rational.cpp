@@ -14,18 +14,18 @@ int FindLcm(int first, int second) {
 }
 
 Rational::Rational(const int num, const int denum)
-    : Numerator(num)
-    , Denumenator(denum)
-    {
-        if (Denumenator == 0) {
-            throw std::invalid_argument("bad value in constructor");
-        }
-        Reduce();
+        : Numerator(num)
+        , Denumenator(denum)
+{
+    if (Denumenator == 0) {
+        throw std::invalid_argument("bad value in constructor");
     }
+    Reduce();
+}
 
 Rational::Rational(const int num)
-    : Rational(num, 1)
-    {}
+        : Rational(num, 1)
+{}
 
 void Rational::Reduce() {
     int gcd = FindGcd(Numerator, Denumenator);
@@ -39,35 +39,45 @@ void Rational::Reduce() {
     }
 }
 
-bool operator ==(const Rational& first, const Rational& second) {
-    return first.Numerator == second.Numerator && first.Denumenator == second.Denumenator;
+bool Rational::operator ==(const Rational& second) {
+    return Numerator == second.Numerator && Denumenator == second.Denumenator;
 }
 
-bool operator !=(const Rational& first, const Rational& second) {
-    return !(first == second);
+bool Rational::operator !=(const Rational &second) {
+    return !operator==(second);
 }
 
 std::istream& operator >>(std::istream& in, Rational& num) {
-    std::string st;
-    in >> st;
+    std::string input;
+    int numerator, denumenator = 1;
+    in >> input;
 
-    int pos = st.find('/');
-    if (pos != std::string::npos) {
-       num.Numerator = stoi(st.substr(0, pos));
-       num.Denumenator = stoi(st.substr(pos + 1, st.size() - pos));
-    } else {
-        num.Numerator = stoi(st);
+    int pos = -1;
+
+    for (size_t i = 0; i < input.size(); ++i) {
+        if ((input[i] > '9' || input[i] < '0') && input[i] != '/' && input[i] != '-') {
+            throw std::invalid_argument("invalid input");
+        } else if (input[i] == '/') {
+            pos = i;
+        }
     }
 
-    num.Reduce();
+    if (pos != -1) {
+        numerator = stoi(input.substr(0, pos));
+        denumenator = stoi(input.substr(pos + 1, input.size() - pos));
+    } else {
+        numerator = stoi(input);
+    }
+
+    num = Rational(numerator, denumenator);
 
     return in;
 }
 
 std::ostream& operator <<(std::ostream& out, const Rational& num) {
-    out << num.Numerator;
-    if (num.Denumenator != 1) {
-        out << "/" << num.Denumenator;
+    out << num.GetNumerator();
+    if (num.GetDenumerator() != 1) {
+        out << "/" << num.GetDenumerator();
     }
 
     return out;
