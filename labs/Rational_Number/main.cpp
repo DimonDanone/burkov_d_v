@@ -59,7 +59,7 @@ int main() {
     Rational test;
 
     std::cout << "\nInput tests: "<< std::endl;
-    std::istringstream ss("5/30 -1/3 0 3 4/-5 6/3 34t45/23sdf4");
+    std::istringstream ss("5/30 -1/3 0 3 4/-5 6/3 1/0 34t45/23sdf4");
     ss >> test;
     std::cout << "input: 5/30  --> " << test  << std::endl;
     ss >> test;
@@ -72,6 +72,13 @@ int main() {
     std::cout << "input: 4/-5  --> " << test  << std::endl;
     ss >> test;
     std::cout << "input: 6/3  --> " << test  << std::endl;
+
+    std::cout << "input: 1/0 --> ";
+    try {
+        ss >> test;
+    } catch (std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
 
     std::cout << "input: 34t45/23sdf4  --> ";
     try {

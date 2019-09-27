@@ -27,6 +27,11 @@ Rational::Rational(const int num)
         : Rational(num, 1)
 {}
 
+Rational::Rational(const Rational& num) 
+    : Numerator(num.Numerator)
+    , Denumenator(num.Denumenator)
+{}
+
 void Rational::Reduce() {
     int gcd = FindGcd(Numerator, Denumenator);
 
@@ -37,6 +42,13 @@ void Rational::Reduce() {
         Numerator *= -1;
         Denumenator *= -1;
     }
+}
+
+Rational& Rational::operator =(const Rational& num) {
+    Numerator = num.Numerator;
+    Denumenator = num.Denumenator;
+
+    return *this;
 }
 
 bool Rational::operator ==(const Rational& second) {

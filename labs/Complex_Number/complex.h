@@ -4,6 +4,8 @@ struct Complex {
     Complex() {}
     explicit Complex(const double real);
     Complex(const double real, const double imaginary);
+    Complex(const Complex& rhs);
+    Complex& operator =(const Complex& rhs);
     bool operator ==(const Complex& rhs) const {
         return (re == rhs.re) && (im == rhs.im);
     }

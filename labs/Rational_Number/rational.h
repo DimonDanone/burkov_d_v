@@ -9,12 +9,14 @@ class Rational {
 public:
     Rational() {}
 
-    explicit Rational(const int num, const int denum);
+    Rational(const int num, const int denum);
     Rational(const int num);
+    Rational(const Rational& num);
 
     int GetNumerator() const { return Numerator; }
     int GetDenumerator() const { return Denumenator; }
 
+    Rational& operator =(const Rational& num);
     Rational& operator +=(const Rational& num);
     Rational& operator -=(const Rational& num);
     Rational& operator *=(const Rational& num);
