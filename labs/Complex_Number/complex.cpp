@@ -1,5 +1,7 @@
 #include "complex.h"
 
+double EPS = 1e-7;
+
 Complex::Complex(const double real)
         : Complex(real, 0.0) {
 }
@@ -19,6 +21,10 @@ Complex& Complex::operator =(const Complex& rhs) {
     im = rhs.im;
 
     return *this;
+}
+
+bool Complex::operator ==(const Complex& rhs) const {
+    return fabs(re - rhs.re) < EPS && fabs(im - rhs.im) < EPS;
 }
 
 Complex& Complex::operator+=(const Complex& rhs) {

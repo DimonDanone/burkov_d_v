@@ -7,12 +7,21 @@ int main() {
     std::cout << "Standart constructor: " << Complex() << std::endl;
     std::cout << "From one Double constructor: " << Complex(2.3) << std::endl;
     std::cout << "From two Double constructor: " << Complex(9.45, 1.2) << std::endl;
-
+    std::cout << "Zero constructor Complex(123, 0): " << std::endl;
     try {
         Complex(123, 0);
     } catch (std::invalid_argument& ex) {
         std::cout << ex.what() << std::endl;
     }
+
+    Complex test;
+    std::cout << "Assign tests: " << std::endl;
+    std::cout << "test = Complex(16.45, 24.12): ";
+    test = Complex(16.45, 24.12);
+    std::cout << test << std::endl;
+    std::cout << "test = Complex(0): ";
+    test = Complex(0);
+    std::cout << test << std::endl;
 
     std::cout << "\nReduce tests: " << std::endl;
     std::cout << "Complex(16.45, 24.12): " << Complex(16.45, 24.12) << std::endl;
@@ -49,8 +58,6 @@ int main() {
     std::cout << "{0, 0} != {0, 0}: " << (Complex(1, 3) != Complex(1, 3)) << std::endl;
     std::cout << "{1, 4} != {-1, 4}: " << (Complex(1, 4) != Complex(-1, 4)) << std::endl;
     std::cout << "{1, 2} != {1, 2}: " << (Complex(1, 2) != Complex(1, 2)) << std::endl;
-
-    Complex test;
 
     std::cout << "\nInput tests: "<< std::endl;
     std::istringstream ss("{5,0.3} {-1,3} {0,0} {3.3, -1} {4.001, -5} {6.2, 0} {34t45/23sdf4");

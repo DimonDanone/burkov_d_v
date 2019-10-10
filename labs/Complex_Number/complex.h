@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cmath>
+
 
 struct Complex {
     Complex() {}
@@ -6,9 +8,7 @@ struct Complex {
     Complex(const double real, const double imaginary);
     Complex(const Complex& rhs);
     Complex& operator =(const Complex& rhs);
-    bool operator ==(const Complex& rhs) const {
-        return (re == rhs.re) && (im == rhs.im);
-    }
+    bool operator ==(const Complex& rhs) const;
     bool operator !=(const Complex& rhs) const { return !operator==(rhs); }
     Complex& operator +=(const Complex& rhs);
     Complex& operator +=(const double rhs) { return operator+=(Complex(rhs)); }

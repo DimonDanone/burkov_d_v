@@ -6,4 +6,5 @@ project(burkov_d_v)
 
 include(cmake.build_settings/build_prefix.cmake)
 
+include_directories(labs)
 add_subdirectory(labs)
