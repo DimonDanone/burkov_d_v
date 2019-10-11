@@ -5,10 +5,10 @@
 #include "rational.h"
 
 int main() {
-    std::cout << "Standart constructor: " << Rational() << std::endl;
-    std::cout << "From one Int constructor: " << Rational(2) << std::endl;
-    std::cout << "From two Int constructor: " << Rational(9, 21) << std::endl;
-    std::cout << "Constructor with `0` in denumenator: ";
+    std::cout << "Standart constructor Rational(): " << Rational() << std::endl;
+    std::cout << "From one Int constructor Rational(2): " << Rational(2) << std::endl;
+    std::cout << "From two Int constructor Rational(9, 21): " << Rational(9, 21) << std::endl;
+    std::cout << "Constructor with `0` in denumenator Rational(123, 0): ";
 
     try {
         Rational(123, 0);
