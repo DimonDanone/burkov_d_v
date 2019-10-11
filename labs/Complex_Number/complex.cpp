@@ -1,7 +1,5 @@
 #include "complex.h"
 
-double EPS = 1e-7;
-
 Complex::Complex(const double real)
         : Complex(real, 0.0) {
 }

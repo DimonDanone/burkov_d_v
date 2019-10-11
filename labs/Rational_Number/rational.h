@@ -1,10 +1,12 @@
+// Copyright 2019 by Burkov Dmitrii under Free Public License 1.0.1
+
 #include <iostream>
 #include <string>
 
 int FindGcd(int first, int second);
 
 class Rational {
-public:
+ public:
     Rational() {}
     Rational(const int num, const int denum);
     explicit Rational(const int num);
@@ -28,7 +30,7 @@ public:
 
     Rational& operator =(const Rational& num);
 
-private:
+ private:
     int Numerator = 0;
     int Denumenator = 1;
 

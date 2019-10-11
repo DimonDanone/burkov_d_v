@@ -1,3 +1,7 @@
-add_executable(Rational_number main.cpp rational.h rational.cpp)
+add_library(rational_number_lib rational.h rational.cpp)
 
-set_property(TARGET Rational_number PROPERTY CXX_STANDARD 17)
+add_executable(rational_number main.cpp)
+target_link_libraries(rational_number rational_number_lib)
+
+set_property(TARGET rational_number_lib PROPERTY CXX_STANDARD 17)
+set_property(TARGET rational_number PROPERTY CXX_STANDARD 17)

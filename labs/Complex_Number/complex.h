@@ -25,6 +25,8 @@ struct Complex {
     static const char leftBrace{'{'};
     static const char separator{','};
     static const char rightBrace{'}'};
+private:
+    double EPS = 1e-7;
 };
 
 Complex operator +(const Complex& lhs, const Complex& rhs);

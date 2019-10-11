@@ -1,3 +1,5 @@
+// Copyright 2019 by Burkov Dmitrii under Free Public License 1.0.1
+
 #include "rational.h"
 
 int FindGcd(int first, int second) {
@@ -9,14 +11,12 @@ int FindGcd(int first, int second) {
 }
 
 int FindLcm(int first, int second) {
-
     return first * second / FindGcd(first, second);
 }
 
 Rational::Rational(const int num, const int denum)
         : Numerator(num)
-        , Denumenator(denum)
-{
+        , Denumenator(denum) {
     if (Denumenator == 0) {
         throw std::invalid_argument("bad value in constructor");
     }
@@ -70,9 +70,10 @@ std::istream& operator >>(std::istream& in, Rational& num) {
     int pos = -1;
 
     for (size_t i = 0; i < input.size(); ++i) {
-        if ((input[i] > '9' || input[i] < '0') && input[i] != '/' && input[i] != '-') {
+        if ((input[i] > '9' || input[i] < '0')
+            && input[i] != '/'
+            && input[i] != '-') {
             std::cout << "wrong input\n";
-            in.clear();
             return in;
         } else if (input[i] == '/') {
             pos = i;
@@ -88,7 +89,6 @@ std::istream& operator >>(std::istream& in, Rational& num) {
 
     if (!denumenator) {
         std::cout << "0 in input\n";
-        in.clear();
         return in;
     }
 
@@ -136,7 +136,8 @@ Rational& Rational::operator /=(const int num) {
 
 Rational& Rational::operator +=(const Rational &num) {
     int lcm = FindLcm(Denumenator, num.Denumenator);
-    Numerator = Numerator * lcm / Denumenator + num.Numerator * lcm / num.Denumenator;
+    Numerator = Numerator * lcm / Denumenator
+                + num.Numerator * lcm / num.Denumenator;
     Denumenator = lcm;
     Reduce();
 
@@ -149,7 +150,8 @@ Rational& Rational::operator +=(const int num) {
 
 Rational& Rational::operator -=(const Rational &num) {
     int lcm = FindLcm(Denumenator, num.Denumenator);
-    Numerator = Numerator * lcm / Denumenator - num.Numerator * lcm / num.Denumenator;
+    Numerator = Numerator * lcm / Denumenator
+                - num.Numerator * lcm / num.Denumenator;
     Denumenator = lcm;
     Reduce();
 
