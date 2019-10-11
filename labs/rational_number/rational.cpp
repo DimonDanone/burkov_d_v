@@ -1,6 +1,7 @@
 // Copyright 2019 by Burkov Dmitrii under Free Public License 1.0.1
 
 #include "rational.h"
+#include <sstream>
 
 int FindGcd(int first, int second) {
     if (second == 0) {
@@ -65,26 +66,41 @@ bool Rational::operator !=(const int second) const {
 std::istream& operator >>(std::istream& in, Rational& num) {
     std::string input;
     int numerator, denumenator = 1;
+    char sep;
     in >> input;
+    std::stringstream ss(input);
 
-    int pos = -1;
+    std::string st_num = "";
+    std::string st_denum = "";
 
-    for (size_t i = 0; i < input.size(); ++i) {
-        if ((input[i] > '9' || input[i] < '0')
-            && input[i] != '/'
-            && input[i] != '-') {
+    int start = 0;
+    if (input[0] == '-') {
+        start = 1;
+        st_num += "-";
+    }
+
+    bool is_now_num = true;
+
+    for (size_t i = start; i < input.size(); ++i) {
+        if (input[i] <= '9' && input[i] >= '0') {
+            if (is_now_num) {
+                st_num += input[i];
+            } else {
+                st_denum += input[i];
+            }
+        } else if (input[i] == '/') {
+            is_now_num = false;
+        } else if (!is_now_num && input[i - 1] == '/' && input[i] == '-') {
+            st_denum += input[i];
+        } else {
             std::cout << "wrong input\n";
             return in;
-        } else if (input[i] == '/') {
-            pos = i;
         }
     }
 
-    if (pos != -1) {
-        numerator = stoi(input.substr(0, pos));
-        denumenator = stoi(input.substr(pos + 1, input.size() - pos));
-    } else {
-        numerator = stoi(input);
+    numerator = std::stoi(st_num);
+    if (st_denum != "") {
+        denumenator = std::stoi(st_denum);
     }
 
     if (!denumenator) {
@@ -181,7 +197,7 @@ Rational operator -(const Rational& first, const Rational& second) {
 }
 
 Rational operator -(const Rational& first, const int second) {
-return first - Rational(second);
+    return first - Rational(second);
 }
 
 Rational operator *(const Rational& first, const Rational& second) {
