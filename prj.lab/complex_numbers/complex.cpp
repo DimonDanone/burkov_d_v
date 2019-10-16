@@ -14,14 +14,14 @@ Complex::Complex(const Complex& rhs)
     , im(rhs.im)
     {}
 
-Complex& Complex::operator =(const Complex& rhs) {
+Complex& Complex::operator=(const Complex& rhs) {
     re = rhs.re;
     im = rhs.im;
 
     return *this;
 }
 
-bool Complex::operator ==(const Complex& rhs) const {
+bool Complex::operator==(const Complex& rhs) const {
     return fabs(re - rhs.re) < EPS && fabs(im - rhs.im) < EPS;
 }
 
@@ -37,7 +37,7 @@ Complex operator+(const Complex& lhs, const Complex& rhs) {
     return sum;
 }
 
-Complex& Complex::operator -=(const Complex& rhs) {
+Complex& Complex::operator-=(const Complex& rhs) {
     re -= rhs.re;
     im -=rhs.im;
 
@@ -57,7 +57,7 @@ Complex& Complex::operator*=(const double rhs) {
     return *this;
 }
 
-Complex& Complex::operator *=(const Complex &rhs) {
+Complex& Complex::operator*=(const Complex& rhs) {
     double new_re = re * rhs.re - im * rhs.im;
     im = re * rhs.im + im * rhs.re;
     re = new_re;
@@ -65,11 +65,48 @@ Complex& Complex::operator *=(const Complex &rhs) {
     return *this;
 }
 
-Complex operator *(const Complex& lhs, const Complex& rhs) {
+Complex operator*(const Complex& lhs, const Complex& rhs) {
     Complex res(lhs);
     res *= rhs;
+ 
+    return res;
+}
+
+Complex& Complex::operator/=(const Complex& rhs) {
+    double denum = rhs.re*rhs.re + rhs.im*rhs.im;
+    double num_re = re*rhs.re + im*rhs.im;
+    double num_im = rhs.re*im - re*rhs.im;
+    re = num_re / denum;
+    im = num_im / denum;
+
+    return *this;
+}
+
+Complex operator/(const Complex& lhs, const Complex& rhs) {
+    Complex res(lhs);
+    res /= rhs;
 
     return res;
+}
+
+Complex& Complex::operator/=(const double rhs) {
+    return operator/=(Complex(rhs));
+}
+
+Complex operator+(const Complex& lhs, const double rhs) {
+    return operator+(lhs, Complex(rhs));
+}
+
+Complex operator-(const Complex& lhs, const double rhs) {
+    return operator-(lhs, Complex(rhs));
+}
+
+Complex operator*(const Complex& lhs, const double rhs) {
+    return operator*(lhs, Complex(rhs));
+}
+
+Complex operator/(const Complex& lhs, const double rhs) {
+    return operator/(lhs, Complex(rhs));
 }
 
 std::ostream& Complex::writeTo(std::ostream& ostrm) const {

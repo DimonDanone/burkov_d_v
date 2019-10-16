@@ -99,7 +99,7 @@ std::istream& operator >>(std::istream& in, Rational& num) {
     }
 
     numerator = std::stoi(st_num);
-    if (st_denum != "") {
+    if (st_denum != "" && st_denum != "-") {
         denumenator = std::stoi(st_denum);
     }
 

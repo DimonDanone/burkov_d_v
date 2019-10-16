@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/test_complex.dir/test.cpp.o  -o ../../bin.unix64.unknown/test_complex ../../prj.lab/complex_numbers/libcomplex_number_lib.a 

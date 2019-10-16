@@ -5,6 +5,7 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "cmake.build_settings")
 project(burkov_d_v)
 
 include(cmake.build_settings/build_prefix.cmake)
+include_directories(./prj.lab ./prj.test)
 
-include_directories(./labs)
-add_subdirectory(labs)
+add_subdirectory(prj.test)
+add_subdirectory(prj.lab)
