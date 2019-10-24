@@ -1,2 +1,2 @@
-add_subdirectory(rational_numbers)
-add_subdirectory(complex_numbers)
+add_subdirectory(rational)
+add_subdirectory(complex)
