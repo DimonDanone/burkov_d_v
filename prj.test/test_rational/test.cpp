@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <sstream>
-#include <rational_numbers/rational.h>
+#include <rational/rational.h>
 
 int main() {
     std::cout << "Standart constructor Rational(): " << Rational() << std::endl;
