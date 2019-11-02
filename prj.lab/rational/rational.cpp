@@ -40,30 +40,47 @@ void Rational::Reduce() {
     }
 }
 
-Rational& Rational::operator =(const Rational& num) {
+Rational& Rational::operator=(const Rational& num) {
     Numerator = num.Numerator;
     Denumenator = num.Denumenator;
 
     return *this;
 }
 
-bool Rational::operator ==(const Rational& second) const {
+bool Rational::operator==(const Rational& second) const {
     return Numerator == second.Numerator && Denumenator == second.Denumenator;
 }
 
-bool Rational::operator ==(const int second) const {
+bool Rational::operator==(const int second) const {
     return operator==(Rational(second));
 }
 
-bool Rational::operator !=(const Rational& second) const {
+bool Rational::operator!=(const Rational& second) const {
     return !operator==(second);
 }
 
-bool Rational::operator !=(const int second) const {
-    return !operator==(second);
+bool Rational::operator!=(const int second) const {
+    return !operator==(Rational(second));
 }
 
-std::istream& operator >>(std::istream& in, Rational& num) {
+bool Rational::operator>(const Rational& second) const {
+    int lcm = FindLcm(Denumenator, second.Denumenator);
+    return Numerator * lcm / Denumenator > second.Numerator * lcm / second.Denumenator;
+}
+
+bool Rational::operator>=(const Rational& second) const {
+    return operator==(second) || operator>(second);
+}
+
+bool Rational::operator<(const Rational& second) const {
+    return !operator>=(second);
+}
+
+bool Rational::operator<=(const Rational& second) const {
+    return !operator>(second);
+}
+
+std::istream& operator>>(std::istream& in, Rational& num) {
     std::string input;
     int numerator, denumenator = 1;
     char sep;
@@ -113,7 +130,7 @@ std::istream& operator >>(std::istream& in, Rational& num) {
     return in;
 }
 
-std::ostream& operator <<(std::ostream& out, const Rational& num) {
+std::ostream& operator<<(std::ostream& out, const Rational& num) {
     out << num.GetNumerator();
     if (num.GetDenumerator() != 1) {
         out << "/" << num.GetDenumerator();
@@ -122,7 +139,7 @@ std::ostream& operator <<(std::ostream& out, const Rational& num) {
     return out;
 }
 
-Rational& Rational::operator *=(const Rational& num) {
+Rational& Rational::operator*=(const Rational& num) {
     Numerator *= num.Numerator;
     Denumenator *= num.Denumenator;
     Reduce();
@@ -130,11 +147,11 @@ Rational& Rational::operator *=(const Rational& num) {
     return *this;
 }
 
-Rational& Rational::operator *=(const int num) {
+Rational& Rational::operator*=(const int num) {
     return operator*=(Rational(num));
 }
 
-Rational& Rational::operator /=(const Rational& num) {
+Rational& Rational::operator/=(const Rational& num) {
     if (num == 0) {
         throw std::invalid_argument("0 division");
     }
@@ -146,11 +163,11 @@ Rational& Rational::operator /=(const Rational& num) {
     return *this;
 }
 
-Rational& Rational::operator /=(const int num) {
+Rational& Rational::operator/=(const int num) {
     return operator/=(Rational(num));
 }
 
-Rational& Rational::operator +=(const Rational &num) {
+Rational& Rational::operator+=(const Rational &num) {
     int lcm = FindLcm(Denumenator, num.Denumenator);
     Numerator = Numerator * lcm / Denumenator
                 + num.Numerator * lcm / num.Denumenator;
@@ -160,11 +177,11 @@ Rational& Rational::operator +=(const Rational &num) {
     return *this;
 }
 
-Rational& Rational::operator +=(const int num) {
+Rational& Rational::operator+=(const int num) {
     return operator+=(Rational(num));
 }
 
-Rational& Rational::operator -=(const Rational &num) {
+Rational& Rational::operator-=(const Rational &num) {
     int lcm = FindLcm(Denumenator, num.Denumenator);
     Numerator = Numerator * lcm / Denumenator
                 - num.Numerator * lcm / num.Denumenator;
@@ -174,50 +191,50 @@ Rational& Rational::operator -=(const Rational &num) {
     return *this;
 }
 
-Rational& Rational::operator -=(const int num) {
+Rational& Rational::operator-=(const int num) {
     return operator-=(Rational(num));
 }
 
-Rational operator +(const Rational& first, const Rational& second) {
+Rational operator+(const Rational& first, const Rational& second) {
     Rational res = first;
     res += second;
 
     return res;
 }
 
-Rational operator +(const Rational& first, const int second) {
+Rational operator+(const Rational& first, const int second) {
     return first + Rational(second);
 }
 
-Rational operator -(const Rational& first, const Rational& second) {
+Rational operator-(const Rational& first, const Rational& second) {
     Rational res = first;
     res -= second;
 
     return res;
 }
 
-Rational operator -(const Rational& first, const int second) {
+Rational operator-(const Rational& first, const int second) {
     return first - Rational(second);
 }
 
-Rational operator *(const Rational& first, const Rational& second) {
+Rational operator*(const Rational& first, const Rational& second) {
     Rational res = first;
     res *= second;
 
     return res;
 }
 
-Rational operator *(const Rational& first, const int second) {
+Rational operator*(const Rational& first, const int second) {
     return first * Rational(second);
 }
 
-Rational operator /(const Rational& first, const Rational& second) {
+Rational operator/(const Rational& first, const Rational& second) {
     Rational res = first;
     res /= second;
 
     return res;
 }
 
-Rational operator /(const Rational& first, const int second) {
+Rational operator/(const Rational& first, const int second) {
     return first / Rational(second);
 }

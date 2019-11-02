@@ -25,6 +25,10 @@ class Rational {
 
     bool operator ==(const Rational& second) const;
     bool operator !=(const Rational& second) const;
+    bool operator >(const Rational& second) const;
+    bool operator <(const Rational& second) const;
+    bool operator <=(const Rational& second) const;
+    bool operator >=(const Rational& second) const;
     bool operator ==(const int second) const;
     bool operator !=(const int second) const;
 

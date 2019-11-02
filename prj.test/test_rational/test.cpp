@@ -66,6 +66,11 @@ int main() {
               << (Rational(1, 2) == Rational(2, 4)) << std::endl;
     std::cout << "6/2 == 3: " << (Rational(6/2) == 3) << std::endl;
 
+    std::cout << "\nOther tests: " << std::endl;
+    std::cout << "1/3 > 1/2:" << (Rational(1, 3) > Rational(1/2)) << std::endl;
+    std::cout << "1/4 >= -3/5: " << (Rational(1, 4) >= Rational(-3, 5)) << std::endl;
+    std::cout << "-5/2 < -1/5: " << (Rational(-5, 2) < Rational(-1, 5)) << std::endl;
+
     std::cout << "\nInput tests: "<< std::endl;
     std::istringstream ss("5/30 0 4/-5 -6/3 34t45/23sdf4 345/0");
     ss >> test1;
