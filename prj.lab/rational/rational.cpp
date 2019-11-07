@@ -24,6 +24,10 @@ Rational::Rational(const int num, const int denum)
     Reduce();
 }
 
+Rational::Rational(const Rational& new_num) {
+    *this = new_num;
+}
+
 Rational::Rational(const int num)
         : Rational(num, 1)
 {}
@@ -80,61 +84,40 @@ bool Rational::operator<=(const Rational& second) const {
     return !operator>(second);
 }
 
+Rational operator-(const Rational& rhs) {
+    return Rational(-rhs.GetNumerator(), rhs.GetDenumerator());
+}
+
 std::istream& operator>>(std::istream& in, Rational& num) {
-    std::string input;
-    int numerator, denumenator = 1;
-    char sep;
-    in >> input;
-    std::stringstream ss(input);
-
-    std::string st_num = "";
-    std::string st_denum = "";
-
-    int start = 0;
-    if (input[0] == '-') {
-        start = 1;
-        st_num += "-";
-    }
-
-    bool is_now_num = true;
-
-    for (size_t i = start; i < input.size(); ++i) {
-        if (input[i] <= '9' && input[i] >= '0') {
-            if (is_now_num) {
-                st_num += input[i];
-            } else {
-                st_denum += input[i];
-            }
-        } else if (input[i] == '/') {
-            is_now_num = false;
-        } else if (!is_now_num && input[i - 1] == '/' && input[i] == '-') {
-            st_denum += input[i];
-        } else {
-            std::cout << "wrong input\n";
-            return in;
-        }
-    }
-
-    numerator = std::stoi(st_num);
-    if (st_denum != "" && st_denum != "-") {
-        denumenator = std::stoi(st_denum);
-    }
-
-    if (!denumenator) {
-        std::cout << "0 in input\n";
+    if (in.good()) {
+      int numerator, denumenator = 1;
+      char sep;
+      in >> numerator;
+      if (in.peek() == '/') {
+        in >> sep;
+      } else {
+        in.setstate(std::ios_base::failbit);
         return in;
-    }
-
-    num = Rational(numerator, denumenator);
+      }
+      if (in.peek() >= '0' && in.peek() <= '9') {
+        in >> denumenator;
+      } else {
+        in.setstate(std::ios_base::failbit);
+        return in;
+      }
+      
+      if (sep == '/' && denumenator > 0) {
+          num = Rational(numerator, denumenator);
+      } else {
+          in.setstate(std::ios_base::failbit);
+      }
+  }
 
     return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const Rational& num) {
-    out << num.GetNumerator();
-    if (num.GetDenumerator() != 1) {
-        out << "/" << num.GetDenumerator();
-    }
+    out << num.GetNumerator() << "/" << num.GetDenumerator();
 
     return out;
 }

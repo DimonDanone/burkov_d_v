@@ -21,14 +21,16 @@ struct Complex {
     std::ostream& writeTo(std::ostream& ostrm) const;
     std::istream& readFrom(std::istream& istrm);
 
-    double re{0.0};
-    double im{0.0};
+    Complex operator-() const { return Complex(-re, -im);  }
+
+    double re = 0.0;
+    double im = 0.0;
 
     static const char leftBrace{'{'};
     static const char separator{','};
     static const char rightBrace{'}'};
-private:
-    double EPS = 1e-7;
+ private:
+   static constexpr double eps = std::numeric_limits<double>::epsilon();
 };
 
 Complex operator+(const Complex& lhs, const Complex& rhs);
@@ -39,6 +41,10 @@ Complex operator+(const Complex& lhs, const double rhs);
 Complex operator-(const Complex& lhs, const double rhs);
 Complex operator*(const Complex& lhs, const double rhs);
 Complex operator/(const Complex& lhs, const double rhs);
+Complex operator+(const double lhs, const Complex& rhs);
+Complex operator-(const double lhs, const Complex& rhs);
+Complex operator*(const double lhs, const Complex& rhs);
+Complex operator/(const double lhs, const Complex& rhs);
 
 inline std::ostream& operator<<(std::ostream& ostrm, const Complex& rhs) {
     return rhs.writeTo(ostrm);

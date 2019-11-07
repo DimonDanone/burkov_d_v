@@ -7,12 +7,12 @@ Complex::Complex(const double real)
 Complex::Complex(const double real, const double imaginary)
         : re(real)
         , im(imaginary)
-        {}
+{}
 
 Complex::Complex(const Complex& rhs)
-    : re(rhs.re)
-    , im(rhs.im)
-    {}
+        : re(rhs.re)
+        , im(rhs.im)
+{}
 
 Complex& Complex::operator=(const Complex& rhs) {
     re = rhs.re;
@@ -22,7 +22,7 @@ Complex& Complex::operator=(const Complex& rhs) {
 }
 
 bool Complex::operator==(const Complex& rhs) const {
-    return fabs(re - rhs.re) < EPS && fabs(im - rhs.im) < EPS;
+    return fabs(re - rhs.re) <= eps && fabs(im - rhs.im) <= eps;
 }
 
 Complex& Complex::operator+=(const Complex& rhs) {
@@ -68,7 +68,7 @@ Complex& Complex::operator*=(const Complex& rhs) {
 Complex operator*(const Complex& lhs, const Complex& rhs) {
     Complex res(lhs);
     res *= rhs;
- 
+
     return res;
 }
 
@@ -109,6 +109,22 @@ Complex operator/(const Complex& lhs, const double rhs) {
     return operator/(lhs, Complex(rhs));
 }
 
+Complex operator+(const double lhs, const Complex& rhs) {
+    return operator+(Complex(lhs), rhs);
+}
+
+Complex operator-(const double lhs, const Complex& rhs) {
+    return operator-(Complex(lhs), rhs);
+}
+
+Complex operator*(const double lhs, const Complex& rhs) {
+    return operator*(Complex(lhs), rhs);
+}
+
+Complex operator/(const double lhs, const Complex& rhs) {
+    return operator/(Complex(lhs), rhs);
+}
+
 std::ostream& Complex::writeTo(std::ostream& ostrm) const {
     ostrm << leftBrace << re << separator << " " << im << rightBrace;
     return ostrm;
@@ -130,6 +146,6 @@ std::istream& Complex::readFrom(std::istream& istrm) {
             istrm.setstate(std::ios_base::failbit);
         }
     }
+
     return istrm;
 }
-
