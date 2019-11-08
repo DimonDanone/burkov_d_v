@@ -1,7 +1,6 @@
 #include <cstddef>
 #include <memory>
 
-template <class T>
 class MatrixA {
 public:
     MatrixA() = default;
@@ -15,26 +14,22 @@ public:
 
     std::ptrdiff_t row_count() const { return n_row_;}
     std::ptrdiff_t col_count() const { return n_col_;}
-    T& at(const std::ptrdiff_t row_i, const std::ptrdiff_t col_i);
-    const T& at(const std::ptrdiff_t row_i, const std::ptrdiff_t col_i) const;
+    float& at(const std::ptrdiff_t row_i, const std::ptrdiff_t col_i);
+    const float& at(const std::ptrdiff_t row_i, const std::ptrdiff_t col_i) const;
     MatrixA Transponse();
 
 private:
     std::ptrdiff_t n_row_ = 0;
     std::ptrdiff_t n_col_ = 0;
-    std::unique_ptr<T[]> data_;
+    std::unique_ptr<float[]> data_;
 
 };
 
-template <class T>
-MatrixA<T> operator+(const MatrixA<T>& first, const  MatrixA<T>& second);
-template <class T>
-MatrixA<T> operator-(const MatrixA<T>& first, const  MatrixA<T>& second);
-template <class T>
-MatrixA<T> operator*(const MatrixA<T>& first, const  MatrixA<T>& second);
+MatrixA operator+(const MatrixA& first, const  MatrixA& second);
+MatrixA operator-(const MatrixA& first, const  MatrixA& second);
+MatrixA operator*(const MatrixA& first, const  MatrixA& second);
 
-template <class T>
-std::ostream& operator<<(std::ostream& out, const MatrixA<T>& matrix);
+std::ostream& operator<<(std::ostream& out, const MatrixA& matrix);
 
 #ifndef MATRIXA_MATRIXA_H
 #define MATRIXA_MATRIXA_H
